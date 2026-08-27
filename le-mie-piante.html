@@ -189,8 +189,8 @@
   <div class="content" id="mainContent"></div>
   <button class="fab" id="fabAdd" aria-label="Aggiungi pianta">+</button>
   <div class="tabbar">
-    <button class="tab-btn active" data-tab="piante"><span class="tab-icon">🌿</span>Piante</button>
-    <button class="tab-btn" data-tab="stats"><span class="tab-icon">📊</span>Statistiche</button>
+    <button class="tab-btn active" data-tab="piante"><span class="tab-icon">üåø</span>Piante</button>
+    <button class="tab-btn" data-tab="stats"><span class="tab-icon">üìä</span>Statistiche</button>
   </div>
 </div>
 
@@ -198,15 +198,15 @@
 (function(){
   const SPECIES = {
     basilico: {
-      label:'Basilico', emoji:'🌱',
+      label:'Basilico', emoji:'üå±',
       wateringDays:1, fertilizingDays:21, pruningDays:45,
       wateringNote:'Ogni giorno, terriccio sempre umido (nebulizzazione se seme)',
-      fertilizingNote:'Concime liquido bilanciato, a metà dose',
+      fertilizingNote:'Concime liquido bilanciato, a met√† dose',
       pruningNote:'Cimatura apice a 6-8 foglie vere',
       germinationDays:10
     },
     salvia: {
-      label:'Salvia', emoji:'🌿',
+      label:'Salvia', emoji:'üåø',
       wateringDays:6, fertilizingDays:60, pruningDays:180,
       wateringNote:'Rada, solo a terriccio asciutto',
       fertilizingNote:'Minima, non esigente',
@@ -214,7 +214,7 @@
       germinationDays:null
     },
     rosmarino: {
-      label:'Rosmarino', emoji:'🌲',
+      label:'Rosmarino', emoji:'üå≤',
       wateringDays:8, fertilizingDays:75, pruningDays:365,
       wateringNote:'Rada, solo a terriccio asciutto',
       fertilizingNote:'Minima, non esigente',
@@ -222,7 +222,7 @@
       germinationDays:null
     },
     limone: {
-      label:'Limone', emoji:'🍋',
+      label:'Limone', emoji:'üçã',
       wateringDays:5, fertilizingDays:30, pruningDays:180,
       wateringNote:'Moderata, mai ristagno, mai secco a lungo',
       fertilizingNote:'Concime per agrumi in primavera-estate',
@@ -230,7 +230,7 @@
       germinationDays:null
     },
     altro: {
-      label:'Altra pianta', emoji:'🪴',
+      label:'Altra pianta', emoji:'ü™¥',
       wateringDays:5, fertilizingDays:30, pruningDays:120,
       wateringNote:'Da definire in base alla specie',
       fertilizingNote:'Da definire in base alla specie',
@@ -254,7 +254,7 @@
   }
   function fmtDateTime(iso){
     const d = new Date(iso);
-    return d.toLocaleDateString('it-IT', {day:'numeric', month:'short'}) + ' · ' + d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+    return d.toLocaleDateString('it-IT', {day:'numeric', month:'short'}) + ' ¬∑ ' + d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
   }
 
   async function loadPlants(){
@@ -287,7 +287,7 @@
     const res = await fetch(url);
     if(!res.ok) throw new Error('Geocoding fallito');
     const data = await res.json();
-    if(!data.results || !data.results.length) throw new Error('Città non trovata');
+    if(!data.results || !data.results.length) throw new Error('Citt√† non trovata');
     return {lat: data.results[0].latitude, lon: data.results[0].longitude};
   }
 
@@ -308,14 +308,14 @@
   }
 
   function weatherIcon(code){
-    if(code === 0) return '☀️';
-    if(code <= 2) return '⛅';
-    if(code === 3) return '☁️';
-    if(code >= 51 && code <= 67) return '🌦️';
-    if(code >= 71 && code <= 77) return '❄️';
-    if(code >= 80 && code <= 82) return '🌧️';
-    if(code >= 95) return '⛈️';
-    return '🌡️';
+    if(code === 0) return '‚òÄÔ∏è';
+    if(code <= 2) return '‚õÖ';
+    if(code === 3) return '‚òÅÔ∏è';
+    if(code >= 51 && code <= 67) return 'üå¶Ô∏è';
+    if(code >= 71 && code <= 77) return '‚ùÑÔ∏è';
+    if(code >= 80 && code <= 82) return 'üåßÔ∏è';
+    if(code >= 95) return '‚õàÔ∏è';
+    return 'üå°Ô∏è';
   }
 
   async function refreshWeather(force){
@@ -350,10 +350,10 @@
     const el = document.getElementById('weatherChip');
     if(!el) return;
     if(daily){
-      el.innerHTML = `${weatherIcon(daily.todayCode)} ${Math.round(daily.todayTemp)}°C · ${city}`;
+      el.innerHTML = `${weatherIcon(daily.todayCode)} ${Math.round(daily.todayTemp)}¬∞C ¬∑ ${city}`;
       el.style.color = '';
     } else {
-      el.innerHTML = `⚠️ Meteo non disponibile · ${city}`;
+      el.innerHTML = `‚ö†Ô∏è Meteo non disponibile ¬∑ ${city}`;
       el.style.color = 'var(--text-3)';
     }
   }
@@ -362,16 +362,26 @@
     const s = getSettings();
     const html = `<div class="sheet-overlay" id="settingsOverlay" onclick="if(event.target===this)PlantApp.closeSettings()">
       <div class="sheet" style="position:relative;">
-        <button class="close-x" onclick="PlantApp.closeSettings()">✕</button>
+        <button class="close-x" onclick="PlantApp.closeSettings()">‚úï</button>
         <div class="sheet-handle"></div>
         <h2>Impostazioni meteo</h2>
         <p style="font-size:12.5px;color:var(--text-2);margin:0 0 14px;">Il meteo locale rimanda in automatico i promemoria di irrigazione per le piante segnate come "all'aperto" quando ha piovuto o sta per piovere.</p>
         <div class="field">
-          <label>Città</label>
+          <label>Citt√†</label>
           <input type="text" id="settingsCity" value="${escapeHtml(s.city)}" placeholder="Es. Mozzo (BG)"/>
         </div>
         <button class="btn-primary" onclick="PlantApp.saveSettingsSheet()">Salva e aggiorna meteo</button>
         <p id="settingsStatus" style="font-size:12px;color:var(--text-2);text-align:center;margin-top:10px;"></p>
+
+        <div style="border-top:0.5px solid rgba(31,42,34,0.1);margin-top:20px;padding-top:16px;">
+          <p style="font-weight:600;font-size:14px;margin:0 0 4px;">Backup dati</p>
+          <p style="font-size:12.5px;color:var(--text-2);margin:0 0 12px;">Scarica una copia di tutte le tue piante, o ripristina un backup precedente. Utile se cambi dispositivo o browser.</p>
+          <button class="btn-secondary" onclick="PlantApp.exportData()">‚¨áÔ∏è Esporta backup (JSON)</button>
+          <label class="btn-secondary" style="display:block;text-align:center;margin-top:8px;cursor:pointer;">
+            ‚¨ÜÔ∏è Importa backup
+            <input type="file" accept="application/json" style="display:none;" onchange="PlantApp.importDataFile(this)"/>
+          </label>
+        </div>
       </div>
     </div>`;
     const wrap = document.createElement('div');
@@ -393,7 +403,51 @@
     s.city = city; s.lat = null; s.lon = null;
     saveSettings(s);
     await refreshWeather(true);
-    status.textContent = weatherCache ? 'Meteo aggiornato.' : 'Città non trovata o meteo non disponibile.';
+    status.textContent = weatherCache ? 'Meteo aggiornato.' : 'Citt√† non trovata o meteo non disponibile.';
+  }
+
+  function exportData(){
+    const data = localStorage.getItem('plantAppData') || '[]';
+    const blob = new Blob([data], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `le-mie-piante-backup-${dateStr}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    const status = document.getElementById('settingsStatus');
+    if(status) status.textContent = 'Backup scaricato.';
+  }
+
+  function importDataFile(inputEl){
+    const file = inputEl.files[0];
+    if(!file) return;
+    const status = document.getElementById('settingsStatus');
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try{
+        const parsed = JSON.parse(e.target.result);
+        if(!Array.isArray(parsed)) throw new Error('il file non contiene un elenco di piante valido');
+        const proceed = confirm(`Importare ${parsed.length} piante? I dati attuali (${plants.length} piante) verranno sostituiti e non potranno essere recuperati.`);
+        if(!proceed){ inputEl.value = ''; return; }
+        parsed.forEach(p => {
+          if(!p.id) p.id = uid();
+          if(p.outdoor === undefined) p.outdoor = true;
+          (p.logs || []).forEach(l => { if(!l.id) l.id = uid(); });
+        });
+        plants = parsed;
+        await savePlants();
+        render();
+        if(status) status.textContent = `Importate ${plants.length} piante con successo.`;
+      }catch(err){
+        if(status) status.textContent = 'File non valido, importazione annullata.';
+      }
+      inputEl.value = '';
+    };
+    reader.readAsText(file);
   }
 
   function lastEventDate(plant, type){
@@ -433,7 +487,7 @@
         <circle class="ring-bg" cx="32" cy="32" r="${r}"/>
         <circle class="ring-fg" cx="32" cy="32" r="${r}" stroke="${color}" stroke-dasharray="${c}" stroke-dashoffset="${offset}"/>
       </svg>
-      <div class="ring-icon">💧</div>
+      <div class="ring-icon">üíß</div>
     </div>`;
   }
 
@@ -445,7 +499,7 @@
   function healthLabel(status){
     if(status === 'ottima') return 'Ottima';
     if(status === 'attenzione') return 'Attenzione';
-    return 'In difficoltà';
+    return 'In difficolt√†';
   }
 
   function render(){
@@ -456,7 +510,7 @@
 
   function renderPiante(){
     if(plants.length === 0){
-      mainContent.innerHTML = `<div class="empty-state"><div class="big">🌱</div><p>Nessuna pianta ancora.<br>Tocca + per aggiungerne una.</p></div>`;
+      mainContent.innerHTML = `<div class="empty-state"><div class="big">üå±</div><p>Nessuna pianta ancora.<br>Tocca + per aggiungerne una.</p></div>`;
       return;
     }
     let html = '';
@@ -465,12 +519,12 @@
       const wp = wateringProgress(plant);
       const urgent = wp.daysLeft <= 0;
       const badgeText = urgent ? 'Innaffia ora' : `Tra ${wp.daysLeft}g`;
-      const rainNote = wp.delayed ? `<p class="sub" style="color:var(--accent-dark);">🌧️ Rimandata per pioggia</p>` : '';
+      const rainNote = wp.delayed ? `<p class="sub" style="color:var(--accent-dark);">üåßÔ∏è Rimandata per pioggia</p>` : '';
       html += `<div class="plant-card glass" onclick="PlantApp.openDetail('${plant.id}')">
         ${plant.photo ? `<img class="plant-photo" src="${plant.photo}"/>` : ringSvg(wp.pct, urgent)}
         <div class="plant-info">
           <p class="name">${plant.name}</p>
-          <p class="sub"><span class="health-dot" style="background:${healthColor(plant.health)}"></span>${sp.emoji} ${sp.label} · ${healthLabel(plant.health)}</p>
+          <p class="sub"><span class="health-dot" style="background:${healthColor(plant.health)}"></span>${sp.emoji} ${sp.label} ¬∑ ${healthLabel(plant.health)}</p>
           ${rainNote}
         </div>
         <span class="badge ${urgent?'warn':''}">${badgeText}</span>
@@ -508,11 +562,11 @@
       plants.forEach(p => {
         const lw = lastEventDate(p,'water');
         const lf = lastEventDate(p,'fertilize');
-        html += `<div class="row"><span>${p.name}</span><b>${lw ? fmtDate(lw)+' 💧' : 'mai innaffiata'}${lf ? ' · '+fmtDate(lf)+' 🌾' : ''}</b></div>`;
+        html += `<div class="row"><span>${p.name}</span><b>${lw ? fmtDate(lw)+' üíß' : 'mai innaffiata'}${lf ? ' ¬∑ '+fmtDate(lf)+' üåæ' : ''}</b></div>`;
       });
       html += `</div>`;
     } else {
-      mainContent.innerHTML = `<div class="empty-state"><div class="big">📊</div><p>Le statistiche appariranno<br>appena aggiungi una pianta.</p></div>`;
+      mainContent.innerHTML = `<div class="empty-state"><div class="big">üìä</div><p>Le statistiche appariranno<br>appena aggiungi una pianta.</p></div>`;
       return;
     }
     mainContent.innerHTML = html;
@@ -528,13 +582,13 @@
     const lp = lastEventDate(plant,'prune');
 
     const sortedLogs = [...plant.logs].sort((a,b)=> new Date(b.date)-new Date(a.date));
-    let timelineHtml = sortedLogs.length ? '' : '<p style="font-size:13px;color:var(--text-3);text-align:center;padding:10px 0;">Nessuna attività registrata.</p>';
-    const icons = {water:'💧',fertilize:'🌾',prune:'✂️',note:'📝'};
+    let timelineHtml = sortedLogs.length ? '' : '<p style="font-size:13px;color:var(--text-3);text-align:center;padding:10px 0;">Nessuna attivit√† registrata.</p>';
+    const icons = {water:'üíß',fertilize:'üåæ',prune:'‚úÇÔ∏è',note:'üìù'};
     sortedLogs.slice(0,25).forEach(l => {
       const labels = {water:'Innaffiata',fertilize:'Concimata',prune:'Potata',note:'Nota'};
       timelineHtml += `<div class="tl-item" style="cursor:pointer;" onclick="PlantApp.openLogSheet('${id}','${l.type}','${l.id}')">
         <div class="tl-icon">${icons[l.type]}</div>
-        <div class="tl-body"><p class="t">${labels[l.type]}${l.note ? ' — '+escapeHtml(l.note) : ''}</p><p class="d">${fmtDateTime(l.date)}</p></div>
+        <div class="tl-body"><p class="t">${labels[l.type]}${l.note ? ' ‚Äî '+escapeHtml(l.note) : ''}</p><p class="d">${fmtDateTime(l.date)}</p></div>
       </div>`;
     });
 
@@ -543,11 +597,11 @@
 
     const sheetHtml = `<div class="sheet-overlay" id="detailOverlay" onclick="if(event.target===this)PlantApp.closeDetail()">
       <div class="sheet" style="position:relative;">
-        <button class="close-x" onclick="PlantApp.closeDetail()">✕</button>
+        <button class="close-x" onclick="PlantApp.closeDetail()">‚úï</button>
         <div class="sheet-handle"></div>
         ${plant.photo ? `<img class="detail-photo" src="${plant.photo}"/>` : ''}
         <h2>${sp.emoji} ${plant.name}</h2>
-        <p style="font-size:13px;color:var(--text-2);margin:0 0 4px;">${sp.label} · ${plant.stage==='seme'?'da seme':'travasata'} il ${fmtDate(plant.startDate)}</p>
+        <p style="font-size:13px;color:var(--text-2);margin:0 0 4px;">${sp.label} ¬∑ ${plant.stage==='seme'?'da seme':'travasata'} il ${fmtDate(plant.startDate)}</p>
 
         <div class="field" style="margin-top:12px;">
           <label>Stato di salute</label>
@@ -555,14 +609,14 @@
         </div>
 
         <div class="action-row">
-          <button onclick="PlantApp.openLogSheet('${id}','water')"><span class="ic">💧</span>Innaffia</button>
-          <button onclick="PlantApp.openLogSheet('${id}','fertilize')"><span class="ic">🌾</span>Concima</button>
-          <button onclick="PlantApp.openLogSheet('${id}','prune')"><span class="ic">✂️</span>Pota</button>
+          <button onclick="PlantApp.openLogSheet('${id}','water')"><span class="ic">üíß</span>Innaffia</button>
+          <button onclick="PlantApp.openLogSheet('${id}','fertilize')"><span class="ic">üåæ</span>Concima</button>
+          <button onclick="PlantApp.openLogSheet('${id}','prune')"><span class="ic">‚úÇÔ∏è</span>Pota</button>
         </div>
         <p style="font-size:11.5px;color:var(--text-3);text-align:center;margin:-8px 0 0;">Tocca un'azione per registrarla a data odierna o passata</p>
 
         <div class="care-box">
-          <p style="font-weight:600;margin:0 0 6px;font-size:13.5px;">Scheda di cura — ${sp.label}</p>
+          <p style="font-weight:600;margin:0 0 6px;font-size:13.5px;">Scheda di cura ‚Äî ${sp.label}</p>
           <div class="row"><span>Irrigazione</span><b>${wp.daysLeft<=0?'ora':`tra ${wp.daysLeft}g`}</b></div>
           <p style="font-size:12px;color:var(--text-2);margin:0 0 6px;">${sp.wateringNote}</p>
           <div class="row"><span>Concimazione</span><b>${lf ? Math.max(0, sp.fertilizingDays - daysBetween(new Date(lf),new Date())) + 'g' : 'da avviare'}</b></div>
@@ -616,9 +670,9 @@
     const noteVal = existing && existing.note ? existing.note : '';
     const html = `<div class="sheet-overlay" id="logOverlay" onclick="if(event.target===this)PlantApp.closeLogSheet()">
       <div class="sheet" style="position:relative;">
-        <button class="close-x" onclick="PlantApp.closeLogSheet()">✕</button>
+        <button class="close-x" onclick="PlantApp.closeLogSheet()">‚úï</button>
         <div class="sheet-handle"></div>
-        <h2>${existing ? 'Modifica' : 'Registra'} · ${labels[type] || 'Attività'}</h2>
+        <h2>${existing ? 'Modifica' : 'Registra'} ¬∑ ${labels[type] || 'Attivit√†'}</h2>
         <div class="field">
           <label>Data e ora</label>
           <input type="datetime-local" id="logDateInput" value="${dateVal}" max="${toLocalInputValue(new Date())}"/>
@@ -715,7 +769,7 @@
     ).join('');
     const html = `<div class="sheet-overlay" id="addOverlay" onclick="if(event.target===this)PlantApp.closeAdd()">
       <div class="sheet" style="position:relative;">
-        <button class="close-x" onclick="PlantApp.closeAdd()">✕</button>
+        <button class="close-x" onclick="PlantApp.closeAdd()">‚úï</button>
         <div class="sheet-handle"></div>
         <h2>Nuova pianta</h2>
         <div class="field">
@@ -842,10 +896,11 @@
     openDetail, closeDetail, addNote, setHealth, deletePlant,
     openAddSheet, closeAdd, selectSpecies, selectStage, selectOutdoor, createPlant,
     openLogSheet, closeLogSheet, saveLogSheet, deleteLog,
-    openSettings, closeSettings, saveSettingsSheet
+    openSettings, closeSettings, saveSettingsSheet, exportData, importDataFile
   };
 
   loadPlants();
   refreshWeather(false);
 })();
 </script>
+
